@@ -18,7 +18,7 @@ const base = `/${currentLang}`;
 <BaseLayout lang={currentLang}>
 
   <!-- HERO -->
-  <section id="home" class="relative min-h-screen w-full flex items-center pt-24 pb-12 lg:pt-28 px-4 sm:px-6 overflow-hidden bg-white">
+  <section id="home" class="relative min-h-screen w-full flex items-start lg:items-center pt-14 lg:pt-28 pb-12 px-4 sm:px-6 overflow-hidden bg-white">
     <!-- Image de fond hero (pelouse tondue + Alpes) -->
     <div class="absolute inset-0 z-0">
       <img
@@ -39,13 +39,13 @@ const base = `/${currentLang}`;
 
     <div class="relative z-10 w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 items-center">
       <div class="text-center lg:text-left order-2 lg:order-1">
-        <span class="inline-block border border-[#2D5F3F]/35 bg-white/70 backdrop-blur-sm px-4 py-1.5 rounded-full text-[10px] uppercase tracking-[0.35em] mb-5 text-[#2D5F3F] font-bold">
+        <span class="inline-block border border-[#2D5F3F]/35 bg-white/70 backdrop-blur-sm px-4 py-1.5 rounded-full text-[10px] uppercase tracking-[0.35em] mb-3 lg:mb-5 text-[#2D5F3F] font-bold">
           {t.hero_badge}
         </span>
 
         {/* Photo client visible MOBILE uniquement, entre pastille et titre */}
-        <div class="lg:hidden mb-6">
-          <div class="relative mx-auto max-w-md">
+        <div class="lg:hidden mb-3">
+          <div class="relative mx-auto max-w-[280px] sm:max-w-xs">
             <div class="absolute -inset-2 bg-gradient-to-tr from-[#88B04B]/25 to-[#2D5F3F]/15 blur-xl rounded-3xl -z-10"></div>
             <div class="relative overflow-hidden rounded-2xl aspect-[4/3] border border-[var(--color-border)] shadow-xl shadow-black/15">
               <img
@@ -60,14 +60,14 @@ const base = `/${currentLang}`;
           </div>
         </div>
 
-        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-serif italic text-[var(--color-text-primary)] mb-4 leading-[1] tracking-tight drop-shadow-sm">
+        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-serif italic text-[var(--color-text-primary)] mb-3 lg:mb-4 leading-[1] tracking-tight drop-shadow-sm">
           {t.hero_title1}<br>
           <span class="text-[#2D5F3F]">{t.hero_title2}</span>
         </h1>
-        <p class="text-[var(--color-text-secondary)] max-w-xl mx-auto lg:mx-0 leading-relaxed mb-6 text-base sm:text-lg">
+        <p class="text-[var(--color-text-secondary)] max-w-xl mx-auto lg:mx-0 leading-relaxed mb-4 lg:mb-6 text-base sm:text-lg">
           {t.hero_lead}
         </p>
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center justify-center lg:justify-start mb-4">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center justify-center lg:justify-start mb-3 lg:mb-4">
           <a href={`${base}/#contact`} class="inline-flex items-center justify-center px-8 py-4 bg-[#2D5F3F] text-white font-bold uppercase tracking-[0.2em] text-[11px] rounded-lg shadow-[0_10px_28px_rgba(45,95,63,0.32)] hover:scale-[1.02] hover:shadow-[0_14px_36px_rgba(45,95,63,0.42)] transition-all duration-200">
             {t.hero_cta_quote}
           </a>
