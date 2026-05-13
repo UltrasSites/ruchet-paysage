@@ -5,10 +5,10 @@ import "../styles/global.css";
 import type { Lang } from "../i18n/utils";
 
 interface Props { title?: string; description?: string; lang?: Lang; }
-const pageTitle = Astro.props.title ?? "Artisan Brico Toulouse & Occitanie - Démo | ultras-sites.com";
-const description = Astro.props.description ?? "Démo site vitrine artisans à Toulouse et en Occitanie : plomberie, serrurerie, peinture, électricité. Création site web plombier Toulouse, site électricien Occitanie. Modèle proposé par ultras-sites.com.";
+const pageTitle = Astro.props.title ?? "Ruchet Paysage — Paysagiste à Corbeyrier (Vaud, Suisse)";
+const description = Astro.props.description ?? "Julien Ruchet, paysagiste indépendant à Corbeyrier (canton de Vaud, Suisse). Création de jardins, tonte, taille, désherbage, nettoyage de terrasses et déneigement. Devis gratuit dans toute la riviera vaudoise.";
 const lang = Astro.props.lang ?? 'fr';
-const htmlLang = lang === 'pt' ? 'pt-PT' : lang === 'en' ? 'en-US' : lang;
+const htmlLang = 'fr-CH';
 ---
 
 <!doctype html>
@@ -16,50 +16,71 @@ const htmlLang = lang === 'pt' ? 'pt-PT' : lang === 'en' ? 'en-US' : lang;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#2D5F3F" />
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
-    <meta name="keywords" content="site web artisan, création site plombier Toulouse, site web électricien Occitanie, web artisan Toulouse" />
-    <meta name="geo.region" content="FR-OCC" />
-    <meta name="geo.placename" content="Toulouse" />
+    <meta name="keywords" content="paysagiste Corbeyrier, paysagiste Vaud, jardinier Aigle, déneigement Vaud, création jardin Vaud, taille haie Vaud, Ruchet Paysage" />
+    <meta name="geo.region" content="CH-VD" />
+    <meta name="geo.placename" content="Corbeyrier" />
     <link rel="canonical" href={Astro.url.href} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:image" content={new URL('/photos/jardin-alpin.jpg', Astro.url).href} />
+    <meta property="og:locale" content="fr_CH" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <meta name="theme-color" content="#0a0a0a" />
-    <link rel="preconnect" href="https://images.pexels.com" />
-    <link rel="dns-prefetch" href="https://images.pexels.com" />
-    <link rel="preload" as="image" href="/hero-brico.jpg" fetchpriority="high" />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" /></noscript>
+    <link rel="preload" as="image" href="/photos/julien-pickup.jpg" fetchpriority="high" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" /></noscript>
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Ruchet Paysage",
+      "founder": "Julien Ruchet",
+      "description": description,
+      "url": Astro.url.origin,
+      "image": new URL('/photos/jardin-alpin.jpg', Astro.url).href,
+      "logo": new URL('/logo.png', Astro.url).href,
+      "telephone": "+41754147697",
+      "email": "info@ruchetpaysage.ch",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Corbeyrier",
+        "postalCode": "1856",
+        "addressRegion": "Vaud",
+        "addressCountry": "CH"
+      },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "07:00", "closes": "18:00" }
+      ],
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=61578599286003",
+        "https://www.instagram.com/julien_ruchet/"
+      ]
+    })}></script>
 
     <title>{pageTitle}</title>
 
+    <style is:inline>
+      html { background-color: #ffffff; }
+      html.loaded { opacity: 1; }
+    </style>
+
     <script is:inline>
-      const theme = (() => {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          return localStorage.getItem('theme');
-        }
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          return 'dark';
-        }
-        return 'light'; // Blanc par défaut pour les peintres
-      })();
-      if (theme === 'dark') {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
+      document.addEventListener("DOMContentLoaded", () => {
+        document.documentElement.classList.add("loaded");
+      });
+      setTimeout(() => document.documentElement.classList.add("loaded"), 300);
     </script>
   </head>
 
-  <body>
-    <script is:inline>
-      (function(){ var L = document.documentElement.getAttribute('data-lang'); if(L) try { localStorage.setItem('lang', L); } catch(e) {} })();
-    </script>
+  <body class="bg-white text-[var(--color-text-primary)] antialiased selection:bg-[#2D5F3F] selection:text-white">
     <Header lang={lang} />
     <main>
       <slot />

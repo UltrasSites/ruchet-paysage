@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://brico.ultras-sites.com/sitemap.xml
+Sitemap: https://travaux.ultras-sites.com/sitemap.xml

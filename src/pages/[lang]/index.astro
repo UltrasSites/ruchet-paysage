@@ -1,185 +1,116 @@
 ---
-export function getStaticPaths() {
-  return [
-    { params: { lang: 'fr' } },
-  ];
-}
-
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import BeforeAfter from '../../components/BeforeAfter.astro';
 import { getLangFromParam } from '../../i18n/utils';
 import { translations, getServices, getGallery } from '../../i18n/translations';
 
+export function getStaticPaths() {
+  return [{ params: { lang: 'fr' } }];
+}
+
 const currentLang = getLangFromParam(Astro.params.lang);
 const t = translations[currentLang];
-const base = `/${currentLang}`;
 const services = getServices(currentLang);
 const galleryImages = getGallery(currentLang);
+const base = `/${currentLang}`;
 ---
 
-<BaseLayout
-  title="Ruchet Paysage — Paysagiste à Corbeyrier, Vaud (Suisse) · Création, entretien, déneigement"
-  description="Julien Ruchet, paysagiste indépendant à Corbeyrier (canton de Vaud, Suisse). Création de jardins, tonte, taille, désherbage, nettoyage de terrasses et déneigement. Devis gratuit dans toute la riviera vaudoise."
-  lang={currentLang}
->
-  <section id="home" class="relative min-h-screen max-h-[100svh] w-full flex items-start pt-14 pb-8 lg:pt-16 lg:pb-10 overflow-hidden">
-    <div class="absolute inset-0 z-0">
-      <img
-        src="/hero-brico.jpg"
-        alt="Atelier d'artisan avec outils de bricolage"
-        width="1600" height="1067"
-        class="w-full h-full object-cover"
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-      />
-      <div class="absolute inset-0 bg-[var(--color-bg)]/90"></div>
-      <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)] via-[var(--color-bg)]/80 to-[var(--color-bg)]/40"></div>
+<BaseLayout lang={currentLang}>
+
+  <!-- HERO -->
+  <section id="home" class="relative min-h-screen w-full flex items-center pt-24 pb-12 lg:pt-28 px-4 sm:px-6 overflow-hidden bg-white">
+    <div class="absolute inset-0 z-0 pointer-events-none">
+      <div class="absolute -top-32 -right-32 w-[480px] h-[480px] bg-[#2D5F3F]/12 rounded-full blur-[120px]"></div>
+      <div class="absolute -bottom-32 -left-32 w-[480px] h-[480px] bg-[#88B04B]/10 rounded-full blur-[120px]"></div>
     </div>
 
-    <div class="absolute -top-40 -right-40 w-96 h-96 bg-[var(--color-accent)] rounded-full blur-[120px] opacity-20 pointer-events-none"></div>
-
-    <div class="relative z-10 px-6 w-full max-w-7xl mx-auto mt-2 lg:mt-4">
-      <div class="inline-block border border-[var(--color-accent)] px-4 py-1.5 rounded-full text-[10px] uppercase tracking-[0.4em] mb-4 bg-[var(--color-surface)]/50 backdrop-blur-sm text-[var(--color-accent)] font-bold">
-        {t.hero_badge}
+    <div class="relative z-10 w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 items-center">
+      <div class="text-center lg:text-left">
+        <span class="inline-block border border-[#2D5F3F]/35 bg-[#2D5F3F]/5 px-4 py-1.5 rounded-full text-[10px] uppercase tracking-[0.35em] mb-5 text-[#2D5F3F] font-bold">
+          {t.hero_badge}
+        </span>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-serif italic text-[var(--color-text-primary)] mb-4 leading-[1] tracking-tight">
+          {t.hero_title1}<br>
+          <span class="text-[#2D5F3F]">{t.hero_title2}</span>
+        </h1>
+        <p class="text-[var(--color-text-secondary)] max-w-xl mx-auto lg:mx-0 leading-relaxed mb-6 text-base sm:text-lg">
+          {t.hero_lead}
+        </p>
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center justify-center lg:justify-start mb-4">
+          <a href={`${base}/#contact`} class="inline-flex items-center justify-center px-8 py-4 bg-[#2D5F3F] text-white font-bold uppercase tracking-[0.2em] text-[11px] rounded-lg shadow-[0_10px_28px_rgba(45,95,63,0.32)] hover:scale-[1.02] hover:shadow-[0_14px_36px_rgba(45,95,63,0.42)] transition-all duration-200">
+            {t.hero_cta_quote}
+          </a>
+          <a href={`${base}/#services`} class="inline-flex items-center justify-center px-8 py-4 bg-white border border-[#2D5F3F]/30 text-[#2D5F3F] font-bold uppercase tracking-[0.2em] text-[11px] rounded-lg hover:bg-[#2D5F3F]/8 transition-colors duration-200">
+            {t.hero_cta_services}
+          </a>
+        </div>
+        <p class="text-[var(--color-text-secondary)] text-xs sm:text-sm">{t.hero_footer_note}</p>
       </div>
 
-      <div class="flex flex-col md:flex-row md:items-start gap-6 lg:gap-10 w-full">
-        <div class="flex-1 min-w-0 text-center">
-          <div class="relative inline-block">
-            <img
-              src="https://images.pexels.com/photos/2728269/pexels-photo-2728269.jpeg?auto=compress&cs=tinysrgb&w=640"
-              alt=""
-              aria-hidden="true"
-              loading="eager"
-              fetchpriority="high"
-              decoding="async"
-              class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[72%] h-[140%] object-cover opacity-10 blur-3xl saturate-140% -z-10 rounded-[28px]"
-            />
-            <div class="absolute inset-0 -z-10 bg-gradient-to-r from-[var(--color-accent)]/20 via-transparent to-[var(--color-accent)]/10 blur-0 rounded-[28px]" />
-            <h1 class="relative text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-serif italic text-[var(--color-text)] mb-4 leading-[0.95] drop-shadow-lg">
-              {t.hero_title1} <br>
-              <span class="text-[var(--color-accent)]" style="text-shadow:0 0 40px rgba(30,58,138,0.25)">{t.hero_title2}</span>
-            </h1>
-          </div>
-          <div class="flex justify-center my-5 md:hidden">
-            <div class="hero-poker-cards relative">
-              <div class="hero-card hero-card--1 bg-[var(--color-border)] rounded-lg overflow-hidden">
-                <img
-                  src="https://images.pexels.com/photos/162553/keys-workshop-mechanic-tools-162553.jpeg?auto=compress&cs=tinysrgb&w=800"
-                  alt="Clés et outils de plomberie accrochés sur un panneau"
-                  class="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-              <div class="hero-card hero-card--2 bg-[var(--color-border)] rounded-lg overflow-hidden">
-                <img
-                  src="https://images.pexels.com/photos/6474470/pexels-photo-6474470.jpeg?auto=compress&cs=tinysrgb&w=800"
-                  alt="Peintre en bâtiment qui applique de la peinture sur un mur"
-                  class="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-              <div class="hero-card hero-card--3 bg-[var(--color-border)] rounded-lg overflow-hidden">
-                <img
-                  src="https://images.pexels.com/photos/7854134/pexels-photo-7854134.jpeg?auto=compress&cs=tinysrgb&w=800"
-                  alt="Paysagiste qui taille des plantes dans un jardin"
-                  class="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-          </div>
-
-          <p class="text-[var(--color-text-muted)] max-w-xl leading-relaxed mb-5 font-light text-lg">
-            {t.hero_lead}
-          </p>
-          <p class="text-[var(--color-text-muted)] text-sm italic mb-2">{t.hero_demo} <a href="https://ultras-sites.com" target="_blank" rel="noopener" class="underline">ultras-sites.com</a></p>
-
-          <div class="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center justify-center mb-4">
-            <a href={`${base}#contact`} class="w-full sm:w-auto text-center px-10 py-5 bg-[var(--color-accent)] text-white font-bold uppercase tracking-[0.2em] text-[11px] rounded-lg shadow-[0_12px_32px_rgba(30,58,138,0.45)] hover:scale-105 hover:shadow-[0_16px_40px_rgba(30,58,138,0.55)] transition-all duration-300">
-              {t.hero_cta_quote}
-            </a>
-            <a href={`${base}#services`} class="w-full sm:w-auto text-center px-10 py-5 bg-transparent border-2 border-[var(--color-border)] text-[var(--color-text)] font-bold uppercase tracking-[0.2em] text-[11px] rounded-lg hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors duration-300">
-              {t.hero_cta_services}
-            </a>
-          </div>
-
-          <p class="text-[var(--color-text-muted)] text-sm">{t.hero_footer_note}</p>
-        </div>
-        <div class="hidden md:flex flex-1 flex-col items-center justify-start min-w-0">
-          <div class="hero-poker-cards hero-poker-cards--desktop relative">
-            <div class="hero-card hero-card--1 hero-card--desktop bg-[var(--color-border)] rounded-lg overflow-hidden">
-              <img
-                src="https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg?auto=compress&cs=tinysrgb&w=1000"
-                alt="Jardin paysager avec massifs fleuris"
-                class="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-            <div class="hero-card hero-card--2 hero-card--desktop bg-[var(--color-border)] rounded-lg overflow-hidden">
-              <img
-                src="https://images.pexels.com/photos/2728269/pexels-photo-2728269.jpeg?auto=compress&cs=tinysrgb&w=1000"
-                alt="Terrasse en bois aménagée avec plantes"
-                class="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-            <div class="hero-card hero-card--3 hero-card--desktop bg-[var(--color-border)] rounded-lg overflow-hidden">
-              <img
-                src="https://images.pexels.com/photos/259600/pexels-photo-259600.jpeg?auto=compress&cs=tinysrgb&w=1000"
-                alt="Paysagiste qui taille une haie avec précision"
-                class="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-          </div>
-          <a href="https://ultras-sites.com" target="_blank" rel="noopener" class="mt-6 text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] hover:text-[var(--color-accent)]">ultras-sites.com</a>
+      <div class="relative">
+        <div class="absolute -inset-3 bg-gradient-to-tr from-[#88B04B]/25 to-[#2D5F3F]/15 blur-2xl rounded-3xl -z-10"></div>
+        <div class="relative overflow-hidden rounded-3xl aspect-[4/3] border border-[var(--color-border)] shadow-2xl shadow-black/10">
+          <img
+            src="/photos/julien-pickup.jpg"
+            alt="Julien Ruchet devant son véhicule professionnel à Corbeyrier"
+            width="1200" height="900"
+            class="w-full h-full object-cover"
+            loading="eager"
+            fetchpriority="high"
+          />
         </div>
       </div>
     </div>
   </section>
 
-  <section id="entreprise" class="py-32 px-6 bg-[var(--color-surface)] relative border-b border-[var(--color-border)]">
-    <div class="splatter-corner splatter-corner--tl" aria-hidden="true"></div>
-    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+  <!-- A PROPOS -->
+  <section id="entreprise" class="py-24 px-6 bg-[var(--color-bg-secondary)] border-t border-[var(--color-border)]">
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
       <div class="relative order-2 md:order-1">
-        <div class="absolute -top-6 -left-6 w-32 h-32 bg-[var(--color-accent)]/10 z-0 border-l-4 border-[var(--color-accent)]"></div>
-        <div class="relative z-10 w-full aspect-[4/5] rounded-lg overflow-hidden border border-[var(--color-border)] bg-[var(--color-border)]">
+        <div class="absolute -top-5 -left-5 w-32 h-32 bg-[#2D5F3F]/12 border-l-4 border-[#2D5F3F]"></div>
+        <div class="relative z-10 overflow-hidden aspect-[4/5] rounded-2xl border border-[var(--color-border)] shadow-xl shadow-black/10">
           <img
-            src="https://images.pexels.com/photos/7728721/pexels-photo-7728721.jpeg?auto=compress&cs=tinysrgb&w=1200"
-            alt="Julien Ruchet — paysagiste à Corbeyrier"
+            src="/photos/maison-massifs.jpg"
+            alt="Maison de montagne avec massifs fleuris aménagés par Ruchet Paysage"
             class="w-full h-full object-cover"
             loading="lazy"
           />
         </div>
       </div>
       <div class="order-1 md:order-2">
-        <span class="text-[var(--color-accent)] font-bold tracking-[0.3em] text-[10px] uppercase mb-6 block">{t.section_entreprise_label}</span>
-        <h2 class="text-4xl md:text-5xl font-serif mb-8 text-[var(--color-text)] leading-tight">{t.section_entreprise_title1}<br>{t.section_entreprise_title2}</h2>
-        <div class="text-[var(--color-text-muted)] font-light leading-relaxed space-y-6">
+        <span class="text-[#2D5F3F] font-bold tracking-[0.3em] text-[10px] uppercase mb-5 block">{t.section_entreprise_label}</span>
+        <h2 class="text-4xl md:text-5xl font-serif mb-7 text-[var(--color-text-primary)] leading-tight">
+          {t.section_entreprise_title1}<br>
+          <span class="text-[#2D5F3F]">{t.section_entreprise_title2}</span>
+        </h2>
+        <div class="text-[var(--color-text-secondary)] font-light leading-relaxed space-y-5 mb-8">
           <p>{t.section_entreprise_p1}</p>
           <p>{t.section_entreprise_p2}</p>
-          <p class="font-medium text-[var(--color-text)]">{t.section_entreprise_p3}</p>
         </div>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3"><span class="inline-flex shrink-0 w-6 h-6 rounded-full bg-[#2D5F3F]/10 text-[#2D5F3F] items-center justify-center mt-0.5">✓</span><span class="text-[var(--color-text-primary)] font-medium">{t.section_entreprise_li1}</span></li>
+          <li class="flex items-start gap-3"><span class="inline-flex shrink-0 w-6 h-6 rounded-full bg-[#2D5F3F]/10 text-[#2D5F3F] items-center justify-center mt-0.5">✓</span><span class="text-[var(--color-text-primary)] font-medium">{t.section_entreprise_li2}</span></li>
+          <li class="flex items-start gap-3"><span class="inline-flex shrink-0 w-6 h-6 rounded-full bg-[#2D5F3F]/10 text-[#2D5F3F] items-center justify-center mt-0.5">✓</span><span class="text-[var(--color-text-primary)] font-medium">{t.section_entreprise_li3}</span></li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <section id="services" class="py-32 bg-[var(--color-bg)] bg-splatter border-b border-[var(--color-border)] relative">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="mb-20">
-        <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-accent)] mb-4 block">{t.section_services_label}</span>
-        <h2 class="text-5xl md:text-6xl font-serif italic text-[var(--color-text)]">{t.section_services_title}</h2>
+  <!-- SERVICES -->
+  <section id="services" class="py-24 px-6 bg-white border-t border-[var(--color-border)]">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <span class="text-[10px] font-bold uppercase tracking-[0.35em] text-[#2D5F3F] mb-4 block">{t.section_services_label}</span>
+        <h2 class="text-4xl md:text-5xl font-serif text-[var(--color-text-primary)]">{t.section_services_title}</h2>
       </div>
-
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
         {services.map((service, index) => (
-          <div class="group splatter-hover p-10 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl hover:border-[var(--color-accent)] transition-all duration-300 shadow-sm hover:shadow-xl relative overflow-hidden">
-            <div class="absolute -inset-full bg-[var(--color-accent)]/5 group-hover:inset-0 transition-all duration-700 rounded-full blur-3xl"></div>
+          <div class="group relative p-8 bg-white border border-[var(--color-border)] rounded-2xl hover:border-[#2D5F3F]/40 hover:shadow-xl hover:shadow-[#2D5F3F]/8 transition-all duration-300 overflow-hidden">
+            <div class="absolute -top-12 -right-12 w-32 h-32 bg-[#2D5F3F]/5 rounded-full group-hover:bg-[#2D5F3F]/12 transition-colors"></div>
             <div class="relative z-10">
-              <div class="text-[var(--color-accent)] mb-6 text-2xl font-serif opacity-50">0{index + 1}</div>
-              <h3 class="text-2xl font-serif text-[var(--color-text)] mb-4">{service.title}</h3>
-              <p class="text-[var(--color-text-muted)] font-light leading-relaxed">{service.desc}</p>
+              <div class="text-[#2D5F3F]/40 mb-3 text-2xl font-serif font-bold">0{index + 1}</div>
+              <h3 class="text-xl font-serif text-[var(--color-text-primary)] mb-3">{service.title}</h3>
+              <p class="text-[var(--color-text-secondary)] font-light leading-relaxed text-sm">{service.desc}</p>
             </div>
           </div>
         ))}
@@ -187,150 +118,125 @@ const galleryImages = getGallery(currentLang);
     </div>
   </section>
 
-  <section id="galerie" class="py-24 bg-[var(--color-surface)] paint-texture relative border-b border-[var(--color-border)]">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="mb-16">
-        <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-accent)] mb-4 block">{t.section_galerie_label}</span>
-        <h2 class="text-4xl md:text-5xl font-serif text-[var(--color-text)]">{t.section_galerie_title}</h2>
-        <p class="text-[var(--color-text-muted)] mt-4 max-w-xl">{t.section_galerie_lead}</p>
+  <!-- AVANT / APRES -->
+  <section id="avant-apres" class="py-24 px-6 bg-[var(--color-bg-secondary)] border-t border-[var(--color-border)]">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-12">
+        <span class="text-[10px] font-bold uppercase tracking-[0.35em] text-[#2D5F3F] mb-4 block">{t.section_avant_apres_label}</span>
+        <h2 class="text-4xl md:text-5xl font-serif text-[var(--color-text-primary)] mb-4">{t.section_avant_apres_title}</h2>
+        <p class="text-[var(--color-text-secondary)] max-w-2xl mx-auto leading-relaxed">{t.section_avant_apres_lead}</p>
       </div>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <BeforeAfter
+        before="/photos/avant-debroussaillage.jpg"
+        after="/photos/jardin-alpin.jpg"
+        beforeAlt="Terrain en pente avant débroussaillage"
+        afterAlt="Jardin alpin remis en état par Ruchet Paysage"
+      />
+    </div>
+  </section>
+
+  <!-- GALERIE -->
+  <section id="galerie" class="py-24 px-6 bg-white border-t border-[var(--color-border)]">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-serif text-[var(--color-text-primary)] mb-3">{t.section_galerie_title}</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {galleryImages.map((image) => (
-          <figure class="group relative overflow-hidden rounded-xl">
-            <img
-              src={image.src}
-              alt={image.alt}
-              loading="lazy"
-              class="w-full h-72 object-cover group-hover:scale-105 transition-transform duration-700"
-            />
-            <figcaption class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-white text-sm font-medium">
+          <figure class="group relative overflow-hidden rounded-2xl border border-[var(--color-border)] aspect-[4/3]">
+            <img src={image.src} alt={image.alt} loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            <figcaption class="absolute bottom-3 left-3 px-3 py-1.5 bg-white/95 text-[var(--color-text-primary)] text-[10px] uppercase tracking-widest font-bold rounded-md">
               {image.label}
             </figcaption>
           </figure>
         ))}
       </div>
-      <div class="mt-12 text-center">
-        <a href={`${base}#contact`} class="inline-flex justify-center w-full sm:w-auto px-8 py-4 bg-[var(--color-accent)] text-white text-[11px] font-bold uppercase tracking-[0.2em] rounded-lg shadow-[0_8px_24px_rgba(30,58,138,0.35)] hover:opacity-90 hover:scale-[1.02] transition-all duration-200 text-center">{t.section_galerie_cta}</a>
-      </div>
     </div>
   </section>
 
-  <section class="py-24 bg-[var(--color-bg)] relative overflow-hidden">
-    <div class="splatter-corner splatter-corner--tl" aria-hidden="true"></div>
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="mb-16">
-        <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-accent)] mb-4 block">{t.section_methode_label}</span>
-        <h2 class="text-4xl md:text-5xl font-serif text-[var(--color-text)]">{t.section_methode_title}</h2>
-      </div>
-      <div class="grid md:grid-cols-4 gap-8">
-        <div class="text-center">
-          <div class="w-14 h-14 rounded-full bg-[var(--color-accent)]/10 flex items-center justify-center mx-auto mb-4 text-[var(--color-accent)] font-serif text-2xl font-bold">1</div>
-          <h3 class="text-lg font-serif text-[var(--color-text)] mb-2">{t.methode_1_title}</h3>
-          <p class="text-[var(--color-text-muted)] text-sm">{t.methode_1_desc}</p>
-        </div>
-        <div class="text-center">
-          <div class="w-14 h-14 rounded-full bg-[var(--color-accent)]/10 flex items-center justify-center mx-auto mb-4 text-[var(--color-accent)] font-serif text-2xl font-bold">2</div>
-          <h3 class="text-lg font-serif text-[var(--color-text)] mb-2">{t.methode_2_title}</h3>
-          <p class="text-[var(--color-text-muted)] text-sm">{t.methode_2_desc}</p>
-        </div>
-        <div class="text-center">
-          <div class="w-14 h-14 rounded-full bg-[var(--color-accent)]/10 flex items-center justify-center mx-auto mb-4 text-[var(--color-accent)] font-serif text-2xl font-bold">3</div>
-          <h3 class="text-lg font-serif text-[var(--color-text)] mb-2">{t.methode_3_title}</h3>
-          <p class="text-[var(--color-text-muted)] text-sm">{t.methode_3_desc}</p>
-        </div>
-        <div class="text-center">
-          <div class="w-14 h-14 rounded-full bg-[var(--color-accent)]/10 flex items-center justify-center mx-auto mb-4 text-[var(--color-accent)] font-serif text-2xl font-bold">4</div>
-          <h3 class="text-lg font-serif text-[var(--color-text)] mb-2">{t.methode_4_title}</h3>
-          <p class="text-[var(--color-text-muted)] text-sm">{t.methode_4_desc}</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- CONTACT -->
+  <section id="contact" class="py-24 px-6 bg-[var(--color-bg-secondary)] border-t border-[var(--color-border)]">
+    <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-start">
+      <div class="space-y-8">
+        <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-[#2D5F3F] block">{t.contact_label}</span>
+        <h2 class="text-4xl md:text-5xl font-serif text-[var(--color-text-primary)] leading-tight">
+          {t.contact_title1}<br>{t.contact_title2}
+        </h2>
+        <p class="text-[var(--color-text-secondary)] font-light text-lg leading-relaxed">{t.contact_lead}</p>
 
-  <section id="contact" class="min-h-screen flex items-center justify-center py-24 px-6 bg-[var(--color-bg)] border-t border-[var(--color-border)] relative">
-    <div class="splatter-corner splatter-corner--br" aria-hidden="true"></div>
-    <div class="max-w-6xl w-full grid lg:grid-cols-2 gap-16 items-start">
-      <div class="space-y-10">
-        <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-accent)] block">{t.contact_label}</span>
-        <h2 class="text-5xl md:text-6xl font-serif text-[var(--color-text)] leading-tight">{t.contact_title1}<br>{t.contact_title2}</h2>
-        <p class="text-[var(--color-text-muted)] font-light text-lg leading-relaxed">
-          {t.contact_lead}
-        </p>
-        <div class="space-y-4 pt-8 border-t border-[var(--color-border)]">
-          <div class="flex items-center gap-3 text-[var(--color-text)]">
-            <span class="inline-flex w-9 h-9 rounded-full bg-[var(--color-accent)]/12 items-center justify-center text-[var(--color-accent)]">
+        <div class="space-y-4 pt-6 border-t border-[var(--color-border)]">
+          <div class="flex items-center gap-3 text-[var(--color-text-primary)]">
+            <span class="inline-flex w-9 h-9 rounded-full bg-[#2D5F3F]/12 items-center justify-center text-[#2D5F3F]">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
             </span>
-            <a href="tel:+41754147697" class="text-base font-semibold hover:text-[var(--color-accent)] transition-colors">075 414 76 97</a>
+            <a href="tel:+41754147697" class="text-base font-semibold hover:text-[#2D5F3F] transition-colors">{t.contact_phone_demo}</a>
           </div>
-          <div class="flex items-center gap-3 text-[var(--color-text)]">
-            <span class="inline-flex w-9 h-9 rounded-full bg-[var(--color-accent)]/12 items-center justify-center text-[var(--color-accent)]">
+          <div class="flex items-center gap-3 text-[var(--color-text-primary)]">
+            <span class="inline-flex w-9 h-9 rounded-full bg-[#2D5F3F]/12 items-center justify-center text-[#2D5F3F]">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
             </span>
-            <a href="mailto:info@ruchetpaysage.ch" class="text-base font-semibold hover:text-[var(--color-accent)] transition-colors">info@ruchetpaysage.ch</a>
+            <a href="mailto:info@ruchetpaysage.ch" class="text-base font-semibold hover:text-[#2D5F3F] transition-colors">{t.contact_ultras}</a>
           </div>
-          <div class="flex items-center gap-3 text-[var(--color-text)]">
-            <span class="inline-flex w-9 h-9 rounded-full bg-[var(--color-accent)]/12 items-center justify-center text-[var(--color-accent)]">
+          <div class="flex items-center gap-3 text-[var(--color-text-primary)]">
+            <span class="inline-flex w-9 h-9 rounded-full bg-[#2D5F3F]/12 items-center justify-center text-[#2D5F3F]">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
             </span>
-            <span class="text-base">1856 Corbeyrier, canton de Vaud (Suisse)</span>
+            <span class="text-base">{t.plan_p}</span>
           </div>
-          <div class="flex items-center gap-3 text-[var(--color-text)]">
-            <span class="inline-flex w-9 h-9 rounded-full bg-[var(--color-accent)]/12 items-center justify-center text-[var(--color-accent)]">
+          <div class="flex items-center gap-3 text-[var(--color-text-primary)]">
+            <span class="inline-flex w-9 h-9 rounded-full bg-[#2D5F3F]/12 items-center justify-center text-[#2D5F3F]">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
             </span>
             <span class="text-base">Lundi – Vendredi · 07:00 – 18:00</span>
           </div>
-          <div class="flex items-center gap-4 pt-4">
-            <a href="https://www.facebook.com/profile.php?id=61578599286003" target="_blank" rel="noopener" aria-label="Facebook Ruchet Paysage" class="w-10 h-10 rounded-full border border-[var(--color-border)] flex items-center justify-center text-[var(--color-text)] hover:bg-[var(--color-accent)] hover:text-white hover:border-[var(--color-accent)] transition-all duration-300">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-            </a>
-            <a href="https://www.instagram.com/julien_ruchet/" target="_blank" rel="noopener" aria-label="Instagram Julien Ruchet" class="w-10 h-10 rounded-full border border-[var(--color-border)] flex items-center justify-center text-[var(--color-text)] hover:bg-[var(--color-accent)] hover:text-white hover:border-[var(--color-accent)] transition-all duration-300">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.5-2.5a1 1 0 100 2 1 1 0 000-2z"/></svg>
-            </a>
-          </div>
-          <p class="text-[var(--color-text-muted)] text-xs pt-6">Site réalisé par <a href="https://ultras-sites.com" target="_blank" rel="noopener" class="text-[var(--color-accent)] hover:underline">ultras-sites.com</a></p>
         </div>
+
+        <div class="flex items-center gap-3 pt-2">
+          <a href="https://www.facebook.com/profile.php?id=61578599286003" target="_blank" rel="noopener" aria-label="Facebook" class="w-10 h-10 rounded-full border border-[var(--color-border)] flex items-center justify-center hover:bg-[#2D5F3F] hover:text-white hover:border-[#2D5F3F] transition-all duration-300 text-[var(--color-text-primary)]">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/julien_ruchet/" target="_blank" rel="noopener" aria-label="Instagram" class="w-10 h-10 rounded-full border border-[var(--color-border)] flex items-center justify-center hover:bg-[#2D5F3F] hover:text-white hover:border-[#2D5F3F] transition-all duration-300 text-[var(--color-text-primary)]">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm4.5-2.5a1 1 0 100 2 1 1 0 000-2z"/></svg>
+          </a>
+        </div>
+
+        <p class="text-[var(--color-text-secondary)] text-xs pt-4">Site réalisé par <a href="https://ultras-sites.com" target="_blank" rel="noopener" class="text-[#2D5F3F] hover:underline">ultras-sites.com</a></p>
       </div>
 
-      <form class="bg-[var(--color-surface)] border border-[var(--color-border)] p-10 md:p-14 shadow-2xl space-y-8 relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-2 h-full bg-[var(--color-accent)]"></div>
-        <h3 class="text-2xl font-serif text-[var(--color-text)] mb-6">{t.form_title}</h3>
-        <div class="grid grid-cols-2 gap-6">
-          <input type="text" placeholder={t.form_name} class="w-full bg-transparent border-b border-[var(--color-border)] text-[var(--color-text)] placeholder-[var(--color-text-muted)] py-4 focus:border-[var(--color-accent)] focus:outline-none transition-colors" />
-          <input type="text" placeholder={t.form_city} class="w-full bg-transparent border-b border-[var(--color-border)] text-[var(--color-text)] placeholder-[var(--color-text-muted)] py-4 focus:border-[var(--color-accent)] focus:outline-none transition-colors" />
+      <form class="bg-white border border-[var(--color-border)] p-8 md:p-10 rounded-2xl shadow-xl shadow-black/10 space-y-7">
+        <h3 class="text-2xl font-serif text-[var(--color-text-primary)] mb-4">{t.form_title}</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <input type="text" placeholder={t.form_name} class="w-full bg-transparent border-b border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] py-3 focus:border-[#2D5F3F] focus:outline-none transition-colors" />
+          <input type="text" placeholder={t.form_place} class="w-full bg-transparent border-b border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] py-3 focus:border-[#2D5F3F] focus:outline-none transition-colors" />
         </div>
-        <div class="grid grid-cols-2 gap-6">
-          <input type="email" placeholder={t.form_email} class="w-full bg-transparent border-b border-[var(--color-border)] text-[var(--color-text)] placeholder-[var(--color-text-muted)] py-4 focus:border-[var(--color-accent)] focus:outline-none transition-colors" />
-          <input type="tel" placeholder={t.form_phone} class="w-full bg-transparent border-b border-[var(--color-border)] text-[var(--color-text)] placeholder-[var(--color-text-muted)] py-4 focus:border-[var(--color-accent)] focus:outline-none transition-colors" />
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <input type="email" placeholder={t.form_email} class="w-full bg-transparent border-b border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] py-3 focus:border-[#2D5F3F] focus:outline-none transition-colors" />
+          <input type="tel" placeholder={t.form_phone} class="w-full bg-transparent border-b border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] py-3 focus:border-[#2D5F3F] focus:outline-none transition-colors" />
         </div>
-        <textarea rows="4" placeholder={t.form_message} class="w-full bg-transparent border-b border-[var(--color-border)] text-[var(--color-text)] placeholder-[var(--color-text-muted)] py-4 focus:border-[var(--color-accent)] focus:outline-none transition-colors resize-none"></textarea>
-        <button type="button" class="w-full bg-[var(--color-accent)] hover:bg-[var(--color-text)] text-white font-bold uppercase tracking-[0.2em] py-5 mt-4 transition-colors duration-300">
+        <textarea rows="4" placeholder={t.form_message} class="w-full bg-transparent border-b border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-[var(--color-text-secondary)] py-3 focus:border-[#2D5F3F] focus:outline-none transition-colors resize-none"></textarea>
+        <button type="button" class="w-full bg-[#2D5F3F] hover:bg-[#1f4a30] text-white font-bold uppercase tracking-[0.2em] py-4 rounded-lg transition-colors duration-300">
           {t.form_submit}
         </button>
       </form>
     </div>
   </section>
 
-  <section id="plan" class="py-24 px-6 bg-[var(--color-surface)] border-t border-[var(--color-border)]">
+  <!-- PLAN -->
+  <section id="plan" class="py-20 px-6 bg-white border-t border-[var(--color-border)]">
     <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 items-center">
       <div class="space-y-4">
-        <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-[var(--color-accent)] block">{t.plan_label}</span>
-        <h2 class="text-3xl md:text-4xl font-serif text-[var(--color-text)] leading-tight">{t.plan_title}</h2>
-        <p class="text-[var(--color-text-muted)] leading-relaxed">
-          {t.plan_p}
-          <br />
-          <strong>1856 Corbeyrier, canton de Vaud (Suisse)</strong>.
+        <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-[#2D5F3F] block">{t.plan_label}</span>
+        <h2 class="text-3xl md:text-4xl font-serif text-[var(--color-text-primary)] leading-tight">{t.plan_title}</h2>
+        <p class="text-[var(--color-text-secondary)] leading-relaxed">
+          <strong class="text-[var(--color-text-primary)]">{t.plan_p}</strong>
         </p>
-        <p class="text-[var(--color-text-muted)] text-sm">
-          {t.plan_note}
-        </p>
+        <p class="text-[var(--color-text-secondary)] text-sm">{t.plan_note}</p>
       </div>
-      <div class="map-facade-container relative h-72 md:h-96 rounded-2xl overflow-hidden shadow-2xl shadow-black/20 border border-[var(--color-border)] bg-black" style="cursor:pointer">
-        <div class="map-facade absolute inset-0 z-10 flex items-center justify-center bg-gray-800 hover:bg-gray-700 transition-colors">
+      <div class="map-facade-container relative h-72 md:h-96 rounded-2xl overflow-hidden shadow-xl shadow-black/10 border border-[var(--color-border)] bg-[var(--color-bg-secondary)]" style="cursor:pointer">
+        <div class="map-facade absolute inset-0 z-10 flex items-center justify-center bg-[var(--color-bg-secondary)] hover:bg-[#2D5F3F]/8 transition-colors">
           <div class="text-center">
-            <svg class="w-10 h-10 mx-auto mb-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            <span class="text-sm text-gray-400 font-medium">Cliquez pour voir la carte</span>
+            <svg class="w-10 h-10 mx-auto mb-2 text-[#2D5F3F]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span class="text-sm text-[var(--color-text-primary)] font-medium">Cliquez pour voir la carte</span>
           </div>
         </div>
         <iframe
@@ -338,19 +244,20 @@ const galleryImages = getGallery(currentLang);
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
           class="w-full h-full border-0"
-          title="Google Maps - Localisation"
+          title="Google Maps - Corbeyrier"
         ></iframe>
       </div>
       <script is:inline>
-      document.querySelectorAll('.map-facade').forEach(function(facade) {
-        facade.addEventListener('click', function() {
-          var container = facade.parentElement;
-          var iframe = container.querySelector('iframe[data-src]');
-          if (iframe && !iframe.src) { iframe.src = iframe.dataset.src; }
-          facade.style.display = 'none';
+        document.querySelectorAll('.map-facade').forEach(function(facade) {
+          facade.addEventListener('click', function() {
+            var container = facade.parentElement;
+            var iframe = container.querySelector('iframe[data-src]');
+            if (iframe && !iframe.src) { iframe.src = iframe.dataset.src; }
+            facade.style.display = 'none';
+          });
         });
-      });
       </script>
     </div>
   </section>
+
 </BaseLayout>

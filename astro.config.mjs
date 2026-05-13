@@ -7,6 +7,7 @@ export default defineConfig({
   site: 'https://ultras-sites.com', 
 
   output: 'static',
+  compressHTML: true,
   build: {
     format: 'directory',
     inlineStylesheets: 'always',

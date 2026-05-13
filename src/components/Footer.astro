@@ -8,18 +8,18 @@ const t = translations[lang];
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="bg-[var(--color-surface)] text-[var(--color-text)] py-16 border-t border-[var(--color-border)]">
+<footer class="bg-[var(--color-bg-primary)] text-[var(--color-text-primary)] py-16 border-t border-[var(--color-border)]">
   <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-10">
     
     <div class="text-center md:text-left flex flex-col">
-      <span class="font-serif italic text-2xl">{t.footer_brand}<span class="text-[var(--color-accent)]">.</span></span>
-      <p class="text-[var(--color-text-muted)] text-[10px] mt-3 uppercase tracking-widest font-bold">
-        {t.footer_copyright} © {currentYear} · <a href="https://ultras-sites.com" target="_blank" rel="noopener" class="hover:text-[var(--color-accent)]">ultras-sites.com</a>
+      <span class="font-serif italic text-3xl text-[var(--color-text-primary)]">{t.footer_brand}<span class="text-[#2D5F3F]">.</span></span>
+      <p class="text-[var(--color-text-secondary)] text-xs mt-3 uppercase tracking-widest font-bold">
+        © {currentYear} {t.footer_copyright} <a href="https://ultras-sites.com" target="_blank" rel="noopener" class="hover:text-[#2D5F3F]">ultras-sites.com</a>
       </p>
     </div>
 
-    <div class="flex flex-col md:flex-row items-center gap-10 text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-muted)] font-bold">
-      <a href="https://ultras-sites.com" target="_blank" rel="noopener" class="hover:text-[var(--color-accent)] transition-colors">ultras-sites.com</a>
+    <div class="flex flex-col md:flex-row items-center gap-10 text-xs uppercase tracking-[0.2em] text-gray-400 font-bold">
+      <a href="https://ultras-sites.com" target="_blank" rel="noopener" class="hover:text-[#2D5F3F] transition-colors">ultras-sites.com</a>
     </div>
     
   </div>

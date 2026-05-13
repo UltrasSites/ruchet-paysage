@@ -1,0 +1,126 @@
+---
+interface Props {
+  before: string;
+  after: string;
+  beforeAlt?: string;
+  afterAlt?: string;
+}
+const { before, after, beforeAlt = "Avant", afterAlt = "Après" } = Astro.props;
+---
+
+<div class="ba-wrap" role="img" aria-label={`${beforeAlt} et ${afterAlt} — faites glisser pour comparer`}>
+  <img src={after} alt={afterAlt} class="ba-img ba-after" loading="lazy" decoding="async" />
+  <div class="ba-before-clip" data-clip>
+    <img src={before} alt={beforeAlt} class="ba-img ba-before" loading="lazy" decoding="async" />
+  </div>
+  <div class="ba-handle" data-handle aria-hidden="true">
+    <div class="ba-handle-line"></div>
+    <div class="ba-handle-circle">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0B1F12" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/>
+      </svg>
+    </div>
+  </div>
+  <span class="ba-label ba-label-before">Avant</span>
+  <span class="ba-label ba-label-after">Après</span>
+  <input type="range" min="0" max="100" value="50" class="ba-range" aria-label="Position du curseur avant/après" />
+</div>
+
+<style>
+  .ba-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 1.25rem;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 20px 50px -20px rgba(0,0,0,0.18);
+    user-select: none;
+    background: #000;
+  }
+  .ba-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+  .ba-before-clip {
+    position: absolute;
+    inset: 0;
+    width: 50%;
+    overflow: hidden;
+    transition: width 0.05s linear;
+  }
+  .ba-before-clip .ba-img { width: 200%; }
+  .ba-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 4px;
+    background: #fff;
+    transform: translateX(-50%);
+    pointer-events: none;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.1), 0 4px 16px rgba(0,0,0,0.3);
+    transition: left 0.05s linear;
+  }
+  .ba-handle-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid #2D5F3F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  }
+  .ba-label {
+    position: absolute;
+    bottom: 1rem;
+    padding: 0.45rem 0.9rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: rgba(0,0,0,0.55);
+    color: #fff;
+    border-radius: 999px;
+    backdrop-filter: blur(8px);
+    pointer-events: none;
+  }
+  .ba-label-before { left: 1rem; }
+  .ba-label-after  { right: 1rem; background: rgba(45, 95, 63, 0.85); }
+  .ba-range {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: ew-resize;
+    margin: 0;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.ba-wrap').forEach(wrap => {
+    const clip = wrap.querySelector('[data-clip]') as HTMLElement | null;
+    const handle = wrap.querySelector('[data-handle]') as HTMLElement | null;
+    const range = wrap.querySelector('.ba-range') as HTMLInputElement | null;
+    if (!clip || !handle || !range) return;
+    const update = (v: number) => {
+      const pct = Math.max(0, Math.min(100, v));
+      clip.style.width = pct + '%';
+      handle.style.left = pct + '%';
+    };
+    range.addEventListener('input', () => update(Number(range.value)));
+    update(50);
+  });
+</script>

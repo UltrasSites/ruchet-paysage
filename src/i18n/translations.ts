@@ -11,32 +11,31 @@ export interface GalleryImage {
   src: string;
 }
 
-// Photos paysagisme libres (Pexels), à remplacer plus tard par les vraies photos client Ruchet
 const gallerySrcs = [
-  "https://images.pexels.com/photos/1108572/pexels-photo-1108572.jpeg?auto=compress&cs=tinysrgb&w=1200",
-  "https://images.pexels.com/photos/2728269/pexels-photo-2728269.jpeg?auto=compress&cs=tinysrgb&w=1200",
-  "https://images.pexels.com/photos/259600/pexels-photo-259600.jpeg?auto=compress&cs=tinysrgb&w=1200",
-  "https://images.pexels.com/photos/7728721/pexels-photo-7728721.jpeg?auto=compress&cs=tinysrgb&w=1200",
-  "https://images.pexels.com/photos/4505464/pexels-photo-4505464.jpeg?auto=compress&cs=tinysrgb&w=1200",
-  "https://images.pexels.com/photos/4503273/pexels-photo-4503273.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  "/photos/jardin-alpin.jpg",
+  "/photos/maison-massifs.jpg",
+  "/photos/cour-pavee.jpg",
+  "/photos/tonte-pelouse.jpg",
+  "/photos/desherbage.jpg",
+  "/photos/souffleuse-neige.jpg",
 ];
 
 const servicesData: ServiceItem[] = [
-  { title: "Création paysagère", desc: "Conception et création complète de votre extérieur : massifs, allées, terrasses, espaces verts. Un projet pensé pour durer, adapté à votre terrain et à votre style de vie." },
-  { title: "Tonte & entretien", desc: "Tonte régulière, fauchage, débroussaillage. Un jardin toujours net, géré au rythme des saisons, dans le respect de votre temps." },
-  { title: "Taille & élagage", desc: "Taille des haies, arbustes et arbres fruitiers. Coupes raisonnées pour favoriser la santé et la croissance de vos végétaux." },
-  { title: "Désherbage & plantation", desc: "Désherbage manuel ou raisonné, choix et mise en place de plantes adaptées au sol et au climat de Corbeyrier." },
+  { title: "Création paysagère", desc: "Conception et réalisation complète de votre extérieur — massifs, allées, terrasses, espaces verts. Un projet pensé pour durer, adapté à votre terrain." },
+  { title: "Tonte & entretien", desc: "Tonte régulière, fauchage, débroussaillage. Un jardin toujours net, géré au rythme des saisons." },
+  { title: "Taille & élagage", desc: "Haies, arbustes et arbres fruitiers. Coupes raisonnées pour favoriser la santé et la croissance de vos végétaux." },
+  { title: "Désherbage & plantation", desc: "Désherbage manuel ou raisonné, choix et mise en place de plantes adaptées au sol et au climat de la région." },
   { title: "Nettoyage extérieur", desc: "Terrasses bois, béton, pierres naturelles, carrelage extérieur — nettoyage et entretien pour leur redonner tout leur éclat." },
-  { title: "Déneigement", desc: "Service hivernal manuel (pelle, racleur, sel, gravillons) ou mécanique (souffleuse, saleuse). Vos accès dégagés, en toute sécurité." },
+  { title: "Déneigement", desc: "Service hivernal manuel (pelle, racleur, sel) ou mécanique (souffleuse, saleuse). Vos accès dégagés en toute sécurité." },
 ];
 
 const galleryLabels: Omit<GalleryImage, 'src'>[] = [
-  { label: "Création de jardin", alt: "Jardin paysager fleuri avec massifs" },
-  { label: "Aménagement extérieur", alt: "Terrasse en bois entourée de plantes" },
-  { label: "Taille des haies", alt: "Haie taillée avec précision" },
-  { label: "Entretien des arbres", alt: "Élagueur taillant un arbre" },
-  { label: "Tonte de pelouse", alt: "Pelouse fraîchement tondue" },
-  { label: "Pose de plantes", alt: "Mains plantant une jeune pousse" },
+  { label: "Création paysagère", alt: "Jardin alpin créé par Ruchet Paysage en Suisse" },
+  { label: "Aménagement extérieur", alt: "Maison de montagne avec massifs fleuris" },
+  { label: "Cour & dallage", alt: "Cour pavée avec haie taillée" },
+  { label: "Tonte de pelouse", alt: "Pelouse fraîchement tondue, tondeuse autoportée" },
+  { label: "Désherbage", alt: "Désherbage manuel raisonné" },
+  { label: "Déneigement", alt: "Souffleuse à neige en action" },
 ];
 
 export function getServices(_lang: Lang): ServiceItem[] {
@@ -61,32 +60,28 @@ export interface TranslationsType {
   section_entreprise_title2: string;
   section_entreprise_p1: string;
   section_entreprise_p2: string;
-  section_entreprise_p3: string;
+  section_entreprise_li1: string;
+  section_entreprise_li2: string;
+  section_entreprise_li3: string;
   section_services_label: string;
   section_services_title: string;
-  section_galerie_label: string;
   section_galerie_title: string;
-  section_galerie_lead: string;
-  section_galerie_cta: string;
-  section_methode_label: string;
-  section_methode_title: string;
-  methode_1_title: string;
-  methode_1_desc: string;
-  methode_2_title: string;
-  methode_2_desc: string;
-  methode_3_title: string;
-  methode_3_desc: string;
-  methode_4_title: string;
-  methode_4_desc: string;
+  section_avant_apres_label: string;
+  section_avant_apres_title: string;
+  section_avant_apres_lead: string;
   contact_label: string;
   contact_title1: string;
   contact_title2: string;
   contact_lead: string;
-  contact_demo_note: string;
-  contact_ultras_cta: string;
+  contact_email_label: string;
+  contact_ultras: string;
+  contact_phone_label: string;
+  contact_phone_demo: string;
+  contact_zone_label: string;
+  contact_zone_note: string;
   form_title: string;
   form_name: string;
-  form_city: string;
+  form_place: string;
   form_email: string;
   form_phone: string;
   form_message: string;
@@ -95,7 +90,7 @@ export interface TranslationsType {
   plan_title: string;
   plan_p: string;
   plan_note: string;
-  nav_about: string;
+  nav_entreprise: string;
   nav_services: string;
   nav_galerie: string;
   nav_contact: string;
@@ -105,7 +100,7 @@ export interface TranslationsType {
   footer_brand: string;
   footer_copyright: string;
   drawer_theme: string;
-  drawer_cta: string;
+  drawer_devis: string;
   aria_menu: string;
   drawer_swipe_hint: string;
 }
@@ -124,53 +119,49 @@ const fr: TranslationsType = {
   section_entreprise_title2: 'de vos extérieurs.',
   section_entreprise_p1: "Jeune entrepreneur passionné, Julien Ruchet met 5 ans d'expérience au service de vos espaces verts. Un travail soigné, fiable et pensé pour durer.",
   section_entreprise_p2: "Ruchet Paysage intervient pour les particuliers et les propriétés du canton de Vaud : création, entretien, taille, nettoyage, déneigement.",
-  section_entreprise_p3: '— Julien Ruchet, paysagiste à Corbeyrier',
+  section_entreprise_li1: 'Devis transparent et détaillé',
+  section_entreprise_li2: 'Travail soigné, respect du végétal',
+  section_entreprise_li3: 'Intervention dans tout le canton',
   section_services_label: 'Savoir-faire',
   section_services_title: 'Mes prestations',
-  section_galerie_label: 'Réalisations',
   section_galerie_title: 'Mes chantiers',
-  section_galerie_lead: "Quelques exemples de réalisations : créations de jardins, tailles, entretien et aménagements extérieurs.",
-  section_galerie_cta: 'Demander un devis',
-  section_methode_label: 'Processus',
-  section_methode_title: 'Ma méthode',
-  methode_1_title: 'Visite & écoute',
-  methode_1_desc: 'Je viens sur place comprendre votre terrain, vos envies, vos contraintes.',
-  methode_2_title: 'Devis détaillé',
-  methode_2_desc: 'Un devis clair, sans surprise, avec un planning réaliste.',
-  methode_3_title: 'Exécution soignée',
-  methode_3_desc: 'Travail propre, respectueux du voisinage et du végétal.',
-  methode_4_title: 'Suivi',
-  methode_4_desc: 'Conseil après chantier, entretien régulier si vous le souhaitez.',
+  section_avant_apres_label: 'Réalisation',
+  section_avant_apres_title: 'Avant · Après',
+  section_avant_apres_lead: "Faites glisser pour voir la transformation. Débroussaillage et remise en état d'un terrain en pente — un exemple de ce que Ruchet Paysage réalise dans la région.",
   contact_label: 'Contact',
-  contact_title1: 'Parlons',
-  contact_title2: 'de votre projet.',
-  contact_lead: "Un devis ? Une question ? Un projet de jardin ? Écrivez-moi ou appelez-moi directement — je vous réponds rapidement.",
-  contact_demo_note: 'Site réalisé par',
-  contact_ultras_cta: 'ultras-sites.com',
+  contact_title1: 'Parlons de',
+  contact_title2: 'votre projet.',
+  contact_lead: "Un devis ? Une question ? Un projet de jardin ? Écrivez ou appelez directement — réponse rapide.",
+  contact_email_label: 'Email',
+  contact_ultras: 'info@ruchetpaysage.ch',
+  contact_phone_label: 'Téléphone',
+  contact_phone_demo: '075 414 76 97',
+  contact_zone_label: "Zone d'intervention",
+  contact_zone_note: "Tout le canton de Vaud : Aigle, Yvorne, Villeneuve, Montreux, Vevey, Lausanne et alentours.",
   form_title: 'Demande de devis',
   form_name: 'Nom complet',
-  form_city: 'Localité',
+  form_place: 'Localité',
   form_email: 'Email',
   form_phone: 'Téléphone',
   form_message: 'Décrivez votre projet (création, taille, entretien, déneigement...)',
   form_submit: 'Envoyer ma demande',
   plan_label: 'Localisation',
-  plan_title: 'Basé à Corbeyrier, Vaud.',
-  plan_p: "Intervention dans tout le canton de Vaud :",
-  plan_note: "Aigle, Yvorne, Villeneuve, Montreux, Vevey, Lausanne et alentours — sur devis selon distance.",
-  nav_about: 'À propos',
+  plan_title: 'Basé à Corbeyrier (VD).',
+  plan_p: "1856 Corbeyrier, canton de Vaud (Suisse)",
+  plan_note: "Lun-Ven 07:00 - 18:00 · Devis selon distance au-delà de la riviera vaudoise.",
+  nav_entreprise: 'À propos',
   nav_services: 'Prestations',
   nav_galerie: 'Réalisations',
   nav_contact: 'Contact',
   nav_cta_contact: 'Contact',
   nav_cta_devis: 'Devis',
-  nav_brand_sub: 'Paysagisme · Déneigement · Nettoyage',
+  nav_brand_sub: 'Paysagisme · Déneigement',
   footer_brand: 'Ruchet Paysage',
   footer_copyright: '© Ruchet Paysage ·',
-  drawer_theme: 'Changer le thème',
-  drawer_cta: 'Demander un devis',
+  drawer_theme: '',
+  drawer_devis: 'Demander un devis',
   aria_menu: 'Ouvrir le menu',
-  drawer_swipe_hint: 'Glissez vers le bas pour fermer',
+  drawer_swipe_hint: 'Glissez pour fermer',
 };
 
 export const translations: Record<Lang, TranslationsType> = { fr };
