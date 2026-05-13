@@ -108,7 +108,7 @@ export interface TranslationsType {
 const fr: TranslationsType = {
   hero_badge: 'Paysagiste · Corbeyrier · Vaud',
   hero_title1: 'Valorisation',
-  hero_title2: 'de vos extérieurs.',
+  hero_title2: 'de vos extérieurs',
   hero_lead: "Création, entretien, taille, nettoyage et déneigement — un travail soigné, fiable et durable. Julien Ruchet, paysagiste indépendant à Corbeyrier, Suisse.",
   hero_demo: '',
   hero_cta_quote: 'Demander un devis',

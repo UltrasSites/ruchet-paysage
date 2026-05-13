@@ -19,29 +19,47 @@ const base = `/${currentLang}`;
 
   <!-- HERO -->
   <section id="home" class="relative min-h-screen w-full flex items-center pt-24 pb-12 lg:pt-28 px-4 sm:px-6 overflow-hidden bg-white">
-    <!-- Image de fond subtile (pelouse tondue + Alpes) -->
+    <!-- Image de fond hero (pelouse tondue + Alpes) -->
     <div class="absolute inset-0 z-0">
       <img
         src="/photos/tonte-pelouse.jpg"
         alt=""
         aria-hidden="true"
-        class="w-full h-full object-cover object-center opacity-25"
+        class="w-full h-full object-cover object-center opacity-45"
         width="1600" height="900"
         loading="eager"
         fetchpriority="high"
         decoding="async"
       />
       <!-- voile blanc pour garder lisibilité + halos colorés -->
-      <div class="absolute inset-0 bg-gradient-to-b from-white/70 via-white/55 to-white/85"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-white/50 via-white/40 to-white/75"></div>
       <div class="absolute -top-32 -right-32 w-[480px] h-[480px] bg-[#2D5F3F]/12 rounded-full blur-[120px]"></div>
       <div class="absolute -bottom-32 -left-32 w-[480px] h-[480px] bg-[#88B04B]/10 rounded-full blur-[120px]"></div>
     </div>
 
     <div class="relative z-10 w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 items-center">
-      <div class="text-center lg:text-left">
+      <div class="text-center lg:text-left order-2 lg:order-1">
         <span class="inline-block border border-[#2D5F3F]/35 bg-white/70 backdrop-blur-sm px-4 py-1.5 rounded-full text-[10px] uppercase tracking-[0.35em] mb-5 text-[#2D5F3F] font-bold">
           {t.hero_badge}
         </span>
+
+        {/* Photo client visible MOBILE uniquement, entre pastille et titre */}
+        <div class="lg:hidden mb-6">
+          <div class="relative mx-auto max-w-md">
+            <div class="absolute -inset-2 bg-gradient-to-tr from-[#88B04B]/25 to-[#2D5F3F]/15 blur-xl rounded-3xl -z-10"></div>
+            <div class="relative overflow-hidden rounded-2xl aspect-[4/3] border border-[var(--color-border)] shadow-xl shadow-black/15">
+              <img
+                src="/photos/julien-pickup.jpg"
+                alt="Julien Ruchet devant son véhicule professionnel"
+                width="800" height="600"
+                class="w-full h-full object-cover"
+                loading="eager"
+                fetchpriority="high"
+              />
+            </div>
+          </div>
+        </div>
+
         <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-serif italic text-[var(--color-text-primary)] mb-4 leading-[1] tracking-tight drop-shadow-sm">
           {t.hero_title1}<br>
           <span class="text-[#2D5F3F]">{t.hero_title2}</span>
@@ -60,7 +78,8 @@ const base = `/${currentLang}`;
         <p class="text-[var(--color-text-secondary)] text-xs sm:text-sm">{t.hero_footer_note}</p>
       </div>
 
-      <div class="relative">
+      {/* Photo client DESKTOP uniquement à droite */}
+      <div class="relative hidden lg:block order-1 lg:order-2">
         <div class="absolute -inset-3 bg-gradient-to-tr from-[#88B04B]/25 to-[#2D5F3F]/15 blur-2xl rounded-3xl -z-10"></div>
         <div class="relative overflow-hidden rounded-3xl aspect-[4/3] border border-[var(--color-border)] shadow-2xl shadow-black/10">
           <img
