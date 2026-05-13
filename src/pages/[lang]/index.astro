@@ -18,46 +18,72 @@ const base = `/${currentLang}`;
 <BaseLayout lang={currentLang}>
 
   <!-- HERO -->
-  <section id="home" class="relative min-h-screen w-full flex items-center pt-24 pb-12 lg:pt-28 px-4 sm:px-6 overflow-hidden bg-white">
-    <div class="absolute inset-0 z-0 pointer-events-none">
-      <div class="absolute -top-32 -right-32 w-[480px] h-[480px] bg-[#2D5F3F]/12 rounded-full blur-[120px]"></div>
-      <div class="absolute -bottom-32 -left-32 w-[480px] h-[480px] bg-[#88B04B]/10 rounded-full blur-[120px]"></div>
+  <section id="home" class="relative min-h-screen w-full flex items-center pt-28 pb-16 lg:pt-32 lg:pb-20 px-4 sm:px-6 overflow-hidden">
+    <!-- Image de fond : tondeuse + pelouse + montagnes (comme sur ruchetpaysage.ch) -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="/photos/tonte-pelouse.jpg"
+        alt="Pelouse fraîchement tondue par Ruchet Paysage avec vue sur les Alpes vaudoises"
+        class="w-full h-full object-cover object-center"
+        width="1600" height="900"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <!-- overlay gradient pour lisibilité du texte -->
+      <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/60"></div>
     </div>
 
-    <div class="relative z-10 w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 items-center">
-      <div class="text-center lg:text-left">
-        <span class="inline-block border border-[#2D5F3F]/35 bg-[#2D5F3F]/5 px-4 py-1.5 rounded-full text-[10px] uppercase tracking-[0.35em] mb-5 text-[#2D5F3F] font-bold">
-          {t.hero_badge}
-        </span>
-        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-serif italic text-[var(--color-text-primary)] mb-4 leading-[1] tracking-tight">
-          {t.hero_title1}<br>
-          <span class="text-[#2D5F3F]">{t.hero_title2}</span>
-        </h1>
-        <p class="text-[var(--color-text-secondary)] max-w-xl mx-auto lg:mx-0 leading-relaxed mb-6 text-base sm:text-lg">
-          {t.hero_lead}
-        </p>
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center justify-center lg:justify-start mb-4">
-          <a href={`${base}/#contact`} class="inline-flex items-center justify-center px-8 py-4 bg-[#2D5F3F] text-white font-bold uppercase tracking-[0.2em] text-[11px] rounded-lg shadow-[0_10px_28px_rgba(45,95,63,0.32)] hover:scale-[1.02] hover:shadow-[0_14px_36px_rgba(45,95,63,0.42)] transition-all duration-200">
-            {t.hero_cta_quote}
-          </a>
-          <a href={`${base}/#services`} class="inline-flex items-center justify-center px-8 py-4 bg-white border border-[#2D5F3F]/30 text-[#2D5F3F] font-bold uppercase tracking-[0.2em] text-[11px] rounded-lg hover:bg-[#2D5F3F]/8 transition-colors duration-200">
-            {t.hero_cta_services}
-          </a>
-        </div>
-        <p class="text-[var(--color-text-secondary)] text-xs sm:text-sm">{t.hero_footer_note}</p>
+    <div class="relative z-10 w-full max-w-5xl mx-auto text-center text-white">
+      <span class="inline-block bg-[#2D5F3F] text-white px-5 py-2 rounded-full text-[10px] uppercase tracking-[0.35em] mb-7 font-bold shadow-lg shadow-black/30">
+        {t.hero_badge}
+      </span>
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif italic mb-6 leading-[1] tracking-tight drop-shadow-2xl">
+        {t.hero_title1}<br>
+        <span class="text-[#A8D158]">{t.hero_title2}</span>
+      </h1>
+      <p class="max-w-2xl mx-auto leading-relaxed mb-8 text-base sm:text-lg text-white/95 drop-shadow-md">
+        {t.hero_lead}
+      </p>
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center justify-center mb-2">
+        <a href={`${base}/#contact`} class="inline-flex items-center justify-center px-8 py-4 bg-[#2D5F3F] text-white font-bold uppercase tracking-[0.2em] text-[11px] rounded-lg shadow-[0_12px_32px_rgba(45,95,63,0.55)] hover:scale-[1.02] hover:bg-[#1f4a30] transition-all duration-200">
+          {t.hero_cta_quote}
+        </a>
+        <a href={`${base}/#services`} class="inline-flex items-center justify-center px-8 py-4 bg-white/10 backdrop-blur-md border border-white/40 text-white font-bold uppercase tracking-[0.2em] text-[11px] rounded-lg hover:bg-white/20 transition-colors duration-200">
+          {t.hero_cta_services}
+        </a>
       </div>
+    </div>
 
-      <div class="relative">
-        <div class="absolute -inset-3 bg-gradient-to-tr from-[#88B04B]/25 to-[#2D5F3F]/15 blur-2xl rounded-3xl -z-10"></div>
-        <div class="relative overflow-hidden rounded-3xl aspect-[4/3] border border-[var(--color-border)] shadow-2xl shadow-black/10">
-          <img
-            src="/photos/julien-pickup.jpg"
-            alt="Julien Ruchet devant son véhicule professionnel à Corbeyrier"
-            width="1200" height="900"
-            class="w-full h-full object-cover"
-            loading="eager"
-            fetchpriority="high"
-          />
+    <!-- Card infos contact en bas (style ruchetpaysage.ch) -->
+    <div class="absolute left-1/2 -translate-x-1/2 bottom-6 sm:bottom-10 z-20 w-[92%] max-w-3xl">
+      <div class="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl shadow-black/30 border border-white/60 p-4 sm:p-5 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-5">
+        <a href="tel:+41754147697" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-[#2D5F3F]/6 transition-colors">
+          <span class="inline-flex shrink-0 w-10 h-10 rounded-full bg-[#2D5F3F]/12 items-center justify-center text-[#2D5F3F]">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+          </span>
+          <span class="flex flex-col">
+            <span class="text-[9px] uppercase tracking-widest text-[var(--color-text-secondary)] font-bold">Téléphone</span>
+            <span class="text-sm font-bold text-[var(--color-text-primary)]">075 414 76 97</span>
+          </span>
+        </a>
+        <a href="mailto:info@ruchetpaysage.ch" class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-[#2D5F3F]/6 transition-colors">
+          <span class="inline-flex shrink-0 w-10 h-10 rounded-full bg-[#2D5F3F]/12 items-center justify-center text-[#2D5F3F]">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+          </span>
+          <span class="flex flex-col">
+            <span class="text-[9px] uppercase tracking-widest text-[var(--color-text-secondary)] font-bold">Email</span>
+            <span class="text-sm font-bold text-[var(--color-text-primary)] truncate">info@ruchetpaysage.ch</span>
+          </span>
+        </a>
+        <div class="flex items-center gap-3 px-3 py-2">
+          <span class="inline-flex shrink-0 w-10 h-10 rounded-full bg-[#2D5F3F]/12 items-center justify-center text-[#2D5F3F]">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </span>
+          <span class="flex flex-col">
+            <span class="text-[9px] uppercase tracking-widest text-[var(--color-text-secondary)] font-bold">Horaires</span>
+            <span class="text-sm font-bold text-[var(--color-text-primary)]">Lun – Ven · 07h-18h</span>
+          </span>
         </div>
       </div>
     </div>
