@@ -1,0 +1,404 @@
+---
+import { translations } from "../i18n/translations";
+import type { Lang } from "../i18n/utils";
+
+interface Props { lang?: Lang; }
+const { lang = "fr" } = Astro.props;
+const t = translations[lang];
+const base = `/${lang}`;
+const PHONE = "+41754147697";
+const PHONE_DISPLAY = "075 414 76 97";
+const links = [
+    { name: t.nav_about, href: `${base}/#entreprise` },
+    { name: t.nav_services, href: `${base}/#services` },
+    { name: t.nav_galerie, href: `${base}/#galerie` },
+    { name: t.nav_contact, href: `${base}/#contact` },
+];
+---
+
+<header
+    id="desktop-header"
+    class="hidden md:flex fixed top-0 w-full z-50 transition-all duration-500 h-16 md:h-20 items-center justify-between px-6 md:px-10 border-b border-transparent bg-transparent"
+>
+    <a href={`${base}/`} class="flex items-center gap-3 group" aria-label="Ruchet Paysage — Accueil">
+        <img src="/logo.png" alt="Ruchet Paysage" class="brand-logo h-12 md:h-14 w-auto" width="160" height="56" />
+        <span class="brand-sub hidden lg:block text-[9px] uppercase tracking-[0.3em] text-[var(--color-text-muted)] font-bold">{t.nav_brand_sub}</span>
+    </a>
+
+    <nav
+        class="flex gap-5 md:gap-8 lg:gap-10 text-[10px] md:text-[11px] font-bold text-[var(--color-text)] uppercase tracking-[0.2em]"
+    >
+        {
+            links.map((link) => (
+                <a
+                    href={link.href}
+                    class="hover:text-[var(--color-accent)] transition-colors py-2 relative group"
+                >
+                    {link.name}
+                    <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-[var(--color-accent)] transition-all duration-300 group-hover:w-full" />
+                </a>
+            ))
+        }
+    </nav>
+
+    <div class="flex items-center gap-4">
+        <button
+            id="theme-toggle-desktop"
+            class="p-2 text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors"
+            aria-label={t.drawer_theme}
+        >
+            <svg
+                id="moon-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-5 h-5 hidden dark:block"
+                ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+                ></path></svg
+            >
+            <svg
+                id="sun-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-5 h-5 block dark:hidden"
+                ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                ></path></svg
+            >
+        </button>
+
+        <a
+            href={`tel:${PHONE}`}
+            class="header-phone-btn inline-flex items-center gap-2 px-4 py-3 border border-[var(--color-border)] rounded-full text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--color-text)] bg-[color-mix(in srgb,var(--color-surface)_92%,transparent)] backdrop-blur-sm hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors"
+            aria-label={`Appeler ${PHONE_DISPLAY}`}
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+            </svg>
+            <span class="header-phone-number text-[var(--color-text)]">{PHONE_DISPLAY}</span>
+        </a>
+
+        <a
+            id="header-devis-btn"
+            href={`${base}/#contact`}
+            class="header-devis-btn px-8 py-4 bg-[var(--color-accent)] text-white text-[11px] font-bold uppercase tracking-[0.2em] shadow-lg hover:opacity-90 transition-opacity"
+        >
+            {t.nav_cta_devis}
+        </a>
+    </div>
+</header>
+
+<div
+    class="md:hidden fixed top-4 left-4 z-40 pointer-events-none drop-shadow-md"
+>
+    <a href={`${base}/`} class="pointer-events-auto inline-flex items-center" aria-label="Ruchet Paysage — Accueil">
+        <img src="/logo.png" alt="Ruchet Paysage" class="h-10 w-auto bg-[var(--color-bg)]/85 backdrop-blur-sm rounded px-2 py-1" width="120" height="40" />
+    </a>
+</div>
+
+<!-- Dock mobile centré style pastille liquid glass (menu + tél + thème) -->
+<div class="mobile-dock md:hidden" aria-label="Actions principales">
+    <div class="mobile-dock-inner">
+        <button
+            id="theme-toggle-mobile"
+            class="dock-btn dock-btn-theme"
+            aria-label={t.drawer_theme}
+        >
+            <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"></path></svg>
+            <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"></path></svg>
+        </button>
+        <span class="dock-sep"></span>
+        <button id="mobile-menu-btn" class="dock-btn dock-btn-menu" aria-label={t.aria_menu}>
+            <div id="icon-burger" class="flex flex-col gap-1.5 transition-all duration-300">
+                <span class="w-5 h-0.5 bg-white block"></span>
+                <span class="w-3.5 h-0.5 bg-white block ml-auto"></span>
+                <span class="w-5 h-0.5 bg-white block"></span>
+            </div>
+            <svg id="icon-close" class="w-6 h-6 absolute opacity-0 rotate-90 transition-all duration-300 text-white pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+        <span class="dock-sep"></span>
+        <a href={`${base}/#contact`} class="dock-btn dock-btn-phone" aria-label={t.nav_contact}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+        </a>
+    </div>
+</div>
+
+<style>
+    .mobile-dock {
+        position: fixed;
+        bottom: calc(1.5rem + env(safe-area-inset-bottom));
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 60;
+        display: flex;
+        justify-content: center;
+    }
+    @media (min-width: 768px) { .mobile-dock { display: none !important; } }
+    .mobile-dock-inner {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 99px;
+        background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+        backdrop-filter: blur(24px) saturate(180%);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        border: 1px solid var(--color-border);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+    .dock-btn {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: transform 0.2s ease;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    }
+    .dock-btn:active {
+        transform: scale(0.9);
+    }
+    .dock-btn-theme {
+        background: var(--color-surface);
+        color: var(--color-text);
+        border: 1px solid var(--color-border);
+    }
+    .dock-btn-phone {
+        background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);
+        color: #fff;
+        text-decoration: none;
+    }
+    .dock-btn-menu {
+        background: color-mix(in srgb, var(--color-accent) 28%, var(--color-surface) 72%);
+        color: #fff;
+        border: 1px solid var(--color-border);
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+    }
+    .dock-sep {
+        width: 1px;
+        height: 28px;
+        background: var(--color-border);
+        flex-shrink: 0;
+    }
+    .menu-overlay {
+        background: color-mix(in srgb, var(--color-accent) 18%, rgba(0, 0, 0, 0.62));
+        backdrop-filter: blur(18px) saturate(170%);
+        -webkit-backdrop-filter: blur(18px) saturate(170%);
+        transition: opacity 0.4s;
+    }
+    .menu-panel-drawer {
+        background:
+            radial-gradient(900px circle at -10% 10%, color-mix(in srgb, var(--color-accent) 35%, transparent) 0%, transparent 55%),
+            linear-gradient(180deg, color-mix(in srgb, var(--color-surface) 90%, transparent) 0%, color-mix(in srgb, var(--color-accent) 10%, transparent) 100%);
+        backdrop-filter: blur(26px) saturate(190%);
+        -webkit-backdrop-filter: blur(26px) saturate(190%);
+        box-shadow:
+            inset 0 1px 1px rgba(255, 255, 255, 0.06),
+            0 26px 70px rgba(0, 0, 0, 0.35);
+    }
+    .drawer-close-btn {
+        background: color-mix(in srgb, var(--color-accent) 18%, var(--color-surface) 82%);
+        backdrop-filter: blur(18px) saturate(180%);
+        -webkit-backdrop-filter: blur(18px) saturate(180%);
+        border: 1px solid var(--color-border);
+        color: color-mix(in srgb, #fff 85%, var(--color-text));
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Desktop: affinement au scroll */
+    #desktop-header {
+        height: 64px;
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+    @media (min-width: 768px) { #desktop-header { height: 80px; padding-left: 40px; padding-right: 40px; } }
+
+    #desktop-header.nav-scrolled {
+        height: 56px;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    @media (min-width: 768px) { #desktop-header.nav-scrolled { height: 64px; padding-left: 32px; padding-right: 32px; } }
+
+    #desktop-header .brand-main { font-size: 20px; transition: font-size 0.45s ease; }
+    @media (min-width: 768px) { #desktop-header .brand-main { font-size: 24px; } }
+    #desktop-header.nav-scrolled .brand-main { font-size: 18px; }
+
+    /* Desktop: le bouton devis n'apparaît qu'au scroll */
+    #header-devis-btn {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-6px);
+        transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    #desktop-header.nav-scrolled #header-devis-btn {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+    /* Drawer mobile: notification centrée + animation */
+    #mobile-drawer {
+        transform: translate(-50%, 24px) scale(0.985);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.45s ease, opacity 0.45s ease;
+    }
+    #mobile-drawer.drawer-open {
+        transform: translate(-50%, 0) scale(1);
+        opacity: 1;
+        pointer-events: auto;
+    }
+</style>
+
+<div id="menu-backdrop" class="menu-overlay fixed inset-0 z-[65] hidden opacity-0 transition-opacity duration-400 md:hidden"></div>
+
+<div
+    id="mobile-drawer"
+    class="menu-panel-drawer fixed top-20 left-1/2 w-[92%] max-w-[360px] z-[70] flex flex-col md:hidden touch-pan-y rounded-[28px] border border-[var(--color-border)] overflow-hidden"
+>
+    <div class="p-6 pt-5 flex flex-col max-h-[80dvh]">
+        <div class="flex justify-end mb-2">
+            <button id="drawer-close-btn" type="button" aria-label="Fermer le menu" class="drawer-close-btn min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full cursor-pointer opacity-90 transition-[opacity,transform] duration-200" onmouseenter="this.style.opacity='1';this.style.transform='scale(1.08)'" onmouseleave="this.style.opacity='0.9';this.style.transform='scale(1)'">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.2" style="width:22px;height:22px;"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <p class="text-[10px] uppercase tracking-widest text-[var(--color-text-muted)] mb-4 flex justify-center items-center gap-2" aria-hidden="true">
+            <span class="inline-block w-8 h-0.5 bg-current opacity-60 rounded"></span>
+            {t.drawer_swipe_hint}
+        </p>
+        <div class="flex-1 overflow-y-auto">
+            <nav class="flex flex-col gap-6">
+                {
+                    links.map((link, i) => (
+                        <a
+                            href={link.href}
+                            class="drawer-link text-2xl font-serif italic text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors hover:translate-x-2 duration-300 flex items-center gap-3 group"
+                        >
+                            <span class="text-xs font-sans text-[var(--color-accent)] font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                                0{i + 1}
+                            </span>
+                            {link.name}
+                        </a>
+                    ))
+                }
+                <a
+                    href={`${base}/#contact`}
+                    class="drawer-link text-2xl font-serif italic text-[var(--color-accent)] hover:text-[var(--color-text)] transition-colors hover:translate-x-2 duration-300 mt-2 flex items-center gap-3 group"
+                >
+                    <span
+                        class="text-xs font-sans text-[var(--color-text)] font-bold opacity-0 group-hover:opacity-100 transition-opacity"
+                        >05</span
+                    >
+                    {t.nav_cta_devis}
+                </a>
+            </nav>
+
+        </div>
+
+        <div class="mt-4 border-t border-[var(--color-border)]"></div>
+        <div class="py-3 text-[10px] text-[var(--color-text-muted)] uppercase tracking-widest text-center">
+            {t.footer_copyright} ultras-sites.com
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- GESTION DU HEADER DESKTOP ---
+    const header = document.getElementById("desktop-header");
+    function updateHeader() {
+        if (!header) return;
+        if (window.scrollY > 50) {
+            header.classList.add("nav-scrolled");
+            header.classList.remove("bg-transparent", "border-transparent");
+        } else {
+            header.classList.remove("nav-scrolled");
+            header.classList.add("bg-transparent", "border-transparent");
+        }
+    }
+    window.addEventListener("scroll", updateHeader);
+    updateHeader(); // Initialisation au chargement
+
+    // --- GESTION DU MENU MOBILE PRO+ ---
+    const btn = document.getElementById("mobile-menu-btn"),
+        drawer = document.getElementById("mobile-drawer"),
+        backdrop = document.getElementById("menu-backdrop");
+    const iconBurger = document.getElementById("icon-burger"),
+        iconClose = document.getElementById("icon-close");
+    let isOpen = false;
+
+    function toggleMenu() {
+        if (!drawer || !backdrop || !iconBurger || !iconClose) return;
+        isOpen = !isOpen;
+        if (isOpen) {
+            drawer.classList.add("drawer-open");
+            backdrop.classList.remove("hidden");
+            setTimeout(() => backdrop.classList.remove("opacity-0"), 10);
+            iconBurger.classList.add("opacity-0", "rotate-90");
+            iconClose.classList.remove("opacity-0", "rotate-90");
+            document.body.style.overflow = "hidden";
+        } else {
+            drawer.classList.remove("drawer-open");
+            backdrop.classList.add("opacity-0");
+            setTimeout(() => backdrop.classList.add("hidden"), 400);
+            iconBurger.classList.remove("opacity-0", "rotate-90");
+            iconClose.classList.add("opacity-0", "rotate-90");
+            document.body.style.overflow = "";
+        }
+    }
+    btn?.addEventListener("click", toggleMenu);
+    document.getElementById("drawer-close-btn")?.addEventListener("click", () => { if (isOpen) toggleMenu(); });
+    backdrop?.addEventListener("click", toggleMenu);
+    document.querySelectorAll(".drawer-link").forEach((l) =>
+        l.addEventListener("click", () => {
+            if (isOpen) toggleMenu();
+        }),
+    );
+
+    // --- FERMETURE DU TIROIR (Swipe bas uniquement + Fluidité) ---
+    let touchStartY = 0;
+    drawer?.addEventListener("touchstart", (e) => {
+        touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    
+    drawer?.addEventListener("touchend", (e) => {
+        if (!isOpen) return;
+        const deltaY = e.changedTouches[0].clientY - touchStartY;
+        // Direction d'origine : vers le bas
+        if (deltaY > 50) {
+            toggleMenu();
+        }
+    }, { passive: true });
+
+    // --- GESTION DU THÈME JOUR/NUIT ---
+    const themeToggleBtns = [
+        document.getElementById("theme-toggle-desktop"),
+        document.getElementById("theme-toggle-mobile"),
+    ];
+
+    function toggleTheme() {
+        if (document.documentElement.classList.contains("dark")) {
+            document.documentElement.classList.remove("dark");
+            localStorage.setItem("theme", "light");
+        } else {
+            document.documentElement.classList.add("dark");
+            localStorage.setItem("theme", "dark");
+        }
+    }
+    themeToggleBtns.forEach((btn) =>
+        btn?.addEventListener("click", toggleTheme),
+    );
+</script>

@@ -1,0 +1,59 @@
+---
+// LanguageModal.astro pour le Site Essentiel +
+---
+<div id="lang-modal" class="fixed inset-0 bg-black/80 flex items-center justify-center hidden z-[100] backdrop-blur-sm">
+  <div class="bg-white rounded-2xl p-10 text-center shadow-2xl max-w-sm w-full mx-4">
+    <h2 class="text-xl font-extrabold mb-8 text-gray-800">
+      Choisissez votre langue / Choose your language / Elija su idioma / Escolha seu idioma
+    </h2>
+    <div class="grid grid-cols-2 gap-4">
+      <button id="modal-fr" class="px-6 py-4 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition shadow-lg">
+        Français
+      </button>
+      <button id="modal-en" class="px-6 py-4 bg-gray-800 text-white font-bold rounded-xl hover:bg-gray-900 transition shadow-lg">
+        English
+      </button>
+      <button id="modal-pt" class="px-6 py-4 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition shadow-lg">
+        Português
+      </button>
+      <button id="modal-es" class="px-6 py-4 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 transition shadow-lg">
+        Español
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // On attend que le DOM soit chargé
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('lang-modal');
+    if (!modal) return;
+
+    const savedLang = localStorage.getItem('lang');
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentLangInUrl = urlParams.get('lang');
+
+    // Redirection automatique si une langue est déjà sauvegardée
+    if (savedLang && currentLangInUrl !== savedLang) {
+      urlParams.set('lang', savedLang);
+      window.location.search = urlParams.toString();
+    }
+    // Affichage de la modal si aucune langue définie
+    else if (!savedLang && !currentLangInUrl) {
+      modal.classList.remove('hidden');
+    }
+
+    function setLanguage(l: string) {
+      if (l !== 'fr' && l !== 'en' && l !== 'pt' && l !== 'es') return; // validation
+      localStorage.setItem('lang', l);
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', l);
+      window.location.href = url.toString();
+    }
+
+    document.getElementById('modal-fr')?.addEventListener('click', () => setLanguage('fr'));
+    document.getElementById('modal-en')?.addEventListener('click', () => setLanguage('en'));
+    document.getElementById('modal-pt')?.addEventListener('click', () => setLanguage('pt'));
+    document.getElementById('modal-es')?.addEventListener('click', () => setLanguage('es'));
+  });
+</script>

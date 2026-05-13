@@ -1,0 +1,181 @@
+---
+import { supportedLangs, type Lang } from '../i18n/utils';
+
+interface Props {
+  currentLang: Lang;
+  variant?: 'header' | 'drawer';
+}
+
+const { currentLang, variant = 'header' } = Astro.props;
+const isDrawer = variant === 'drawer';
+
+function buildHref(targetLang: Lang) {
+  // On garde la même “page” en remplaçant le 1er segment (`/fr/...` -> `/en/...`)
+  // et on conserve le hash si présent.
+  const pathname = Astro.url.pathname; // ex: "/fr/xxx"
+  const hash = Astro.url.hash ?? '';
+  const parts = pathname.split('/').filter(Boolean);
+
+  const rest = parts.length > 0 && supportedLangs.includes(parts[0] as Lang)
+    ? parts.slice(1).join('/')
+    : parts.join('/');
+
+  if (!rest) return `/${targetLang}/${hash}`;
+  return `/${targetLang}/${rest}${hash}`;
+}
+---
+
+<details
+  role="navigation"
+  aria-label="Choisir la langue"
+  class:list={['lang-switcher', isDrawer ? 'lang-switcher--drawer' : 'lang-switcher--header']}
+>
+  {isDrawer ? (
+    <div class="lang-switcher__drawer-grid" aria-label="Choisir la langue">
+      {supportedLangs.map((l) => {
+        const isActive = l === currentLang;
+        const href = buildHref(l);
+        return (
+          <a
+            href={href}
+            class:list={[
+              'lang-switcher__drawer-link',
+              isActive && 'lang-switcher__drawer-link--active'
+            ]}
+            aria-current={isActive ? 'true' : undefined}
+            data-lang={l}
+          >
+            {l.toUpperCase()}
+          </a>
+        );
+      })}
+    </div>
+  ) : (
+    <>
+      <summary class="lang-switcher__summary" aria-label="Langue actuelle">
+        {currentLang.toUpperCase()}
+      </summary>
+
+      <div class="lang-switcher__menu" role="menu" aria-label="Choisir la langue">
+        {supportedLangs.map((l) => {
+          const isActive = l === currentLang;
+          const href = buildHref(l);
+          return (
+            <a
+              href={href}
+              class:list={[
+                'lang-switcher__link',
+                isActive && 'lang-switcher__link--active'
+              ]}
+              role="menuitem"
+              aria-current={isActive ? 'true' : undefined}
+              data-lang={l}
+            >
+              {l.toUpperCase()}
+            </a>
+          );
+        })}
+      </div>
+    </>
+  )}
+</details>
+
+<style>
+  .lang-switcher {
+    display: inline-block;
+    position: relative;
+  }
+
+  .lang-switcher__summary {
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+    padding: 0.35rem 0.55rem;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: var(--color-text-muted, #57534e);
+    border: 1px solid transparent;
+    border-radius: 999px;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+    background: rgba(0,0,0,0.03);
+  }
+
+  .lang-switcher__menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    min-width: 180px;
+    background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+    backdrop-filter: blur(18px) saturate(170%);
+    -webkit-backdrop-filter: blur(18px) saturate(170%);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    padding: 0.35rem;
+    overflow: hidden; /* pas de scroll */
+  }
+
+  .lang-switcher:not([open]) .lang-switcher__menu {
+    display: none;
+  }
+
+  .lang-switcher__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: var(--color-text-muted, #57534e);
+    border-radius: 10px;
+    transition: background 0.2s, color 0.2s, transform 0.15s;
+  }
+
+  .lang-switcher__link:hover {
+    background: rgba(0,0,0,0.05);
+    color: var(--color-accent);
+  }
+
+  .lang-switcher__link--active {
+    background: color-mix(in srgb, var(--color-accent) 20%, transparent);
+    color: var(--color-accent);
+  }
+
+  /* Drawer: affichage “pastilles” sans summary */
+  .lang-switcher--drawer {
+    width: 100%;
+  }
+  .lang-switcher__drawer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    padding-top: 0.25rem;
+  }
+  .lang-switcher__drawer-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    background: rgba(0,0,0,0.02);
+    color: var(--color-text-muted);
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    font-size: 12px;
+    transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+  }
+  .lang-switcher__drawer-link:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    transform: translateY(-1px);
+  }
+  .lang-switcher__drawer-link--active {
+    border-color: color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
+    background: color-mix(in srgb, var(--color-accent) 20%, transparent);
+    color: var(--color-accent);
+  }
+</style>

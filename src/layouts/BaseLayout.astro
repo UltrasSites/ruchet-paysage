@@ -1,0 +1,69 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
+import type { Lang } from "../i18n/utils";
+
+interface Props { title?: string; description?: string; lang?: Lang; }
+const pageTitle = Astro.props.title ?? "Artisan Brico Toulouse & Occitanie - Démo | ultras-sites.com";
+const description = Astro.props.description ?? "Démo site vitrine artisans à Toulouse et en Occitanie : plomberie, serrurerie, peinture, électricité. Création site web plombier Toulouse, site électricien Occitanie. Modèle proposé par ultras-sites.com.";
+const lang = Astro.props.lang ?? 'fr';
+const htmlLang = lang === 'pt' ? 'pt-PT' : lang === 'en' ? 'en-US' : lang;
+---
+
+<!doctype html>
+<html lang={htmlLang} data-lang={lang} class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta name="keywords" content="site web artisan, création site plombier Toulouse, site web électricien Occitanie, web artisan Toulouse" />
+    <meta name="geo.region" content="FR-OCC" />
+    <meta name="geo.placename" content="Toulouse" />
+    <link rel="canonical" href={Astro.url.href} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={Astro.url.href} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <meta name="theme-color" content="#0a0a0a" />
+    <link rel="preconnect" href="https://images.pexels.com" />
+    <link rel="dns-prefetch" href="https://images.pexels.com" />
+    <link rel="preload" as="image" href="/hero-brico.jpg" fetchpriority="high" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" /></noscript>
+
+    <title>{pageTitle}</title>
+
+    <script is:inline>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light'; // Blanc par défaut pour les peintres
+      })();
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    </script>
+  </head>
+
+  <body>
+    <script is:inline>
+      (function(){ var L = document.documentElement.getAttribute('data-lang'); if(L) try { localStorage.setItem('lang', L); } catch(e) {} })();
+    </script>
+    <Header lang={lang} />
+    <main>
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>
